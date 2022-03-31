@@ -11,10 +11,9 @@ module.exports = config;
 // @service    connection
 // @name       database
 mongoose
-  .connect({
+  .connect(config.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
   })
   .then(() => console.log("DB connected"))
   .catch((err) => console.log(err));
