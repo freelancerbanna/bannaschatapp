@@ -57,8 +57,10 @@ const SetAvatar = () => {
   useEffect(() => {
     avatartImageLoader();
 
-    if (!localStorage.getItem("user")) {
-      navigate("/login");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user && user.isAvatarImage) {
+      navigate("/");
     }
   }, []);
 

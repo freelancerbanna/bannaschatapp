@@ -18,4 +18,4 @@ export const setAvatarApi = (id, data) =>
 // service     api hit point
 // name        get all user
 export const getAllUserApi = (currentUserId) =>
-  baseApi.get("/user/getalluser", currentUserId);
+  baseApi.get(`/user/getalluser/${currentUserId}`);

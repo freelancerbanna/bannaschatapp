@@ -2,42 +2,50 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getAllUserApi } from "../api";
+import { Contacts, MessageArea, Welcome } from "../components";
 
 const Chat = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentChat, setCurrentChat] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
 
-  const currentUserSet = async () => {
-    const loggeInUser = await JSON.parse(localStorage.getItem("user"));
-    setCurrentUser(loggeInUser);
+  const handleChangeChat = (chat) => {
+    setCurrentChat(chat);
   };
 
-  const getAllUserSet = async () => {
-    // const getAlluser = await getAllUserApi(currentUser._id);
-    // if (getAlluser) {
-    //   setContacts(getAlluser);
-    // }
-    console.log(currentUser._id);
+  const allUserCall = async () => {
+    const { data } = await getAllUserApi(currentUser?._id);
+    if (data) {
+      setContacts(data);
+    }
   };
 
   useEffect(() => {
-    currentUserSet();
-  }, []);
-
-  useEffect(() => {
-    getAllUserSet();
-  }, [currentUser]);
-
-  useEffect(() => {
+    allUserCall();
     if (!localStorage.getItem("user")) {
       navigate("/login");
-    } else {
-      currentUserSet();
     }
-  }, []);
+  }, [currentUser]);
 
-  return <Container>Chat</Container>;
+  return (
+    <Container>
+      <div className="container">
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChangeChat}
+        />
+        {currentChat !== undefined ? (
+          <MessageArea currentChat={currentChat} />
+        ) : (
+          <Welcome currentUser={currentUser} />
+        )}
+      </div>
+    </Container>
+  );
 };
 
 const Container = styled.div`
