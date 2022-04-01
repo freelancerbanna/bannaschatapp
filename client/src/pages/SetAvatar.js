@@ -42,18 +42,19 @@ const SetAvatar = () => {
     theme: "dark",
   };
 
+  const avatartImageLoader = async () => {
+    let data = [];
+    for (let i = 0; i < 5; i++) {
+      let image = await axios.get(
+        `${avatarApi}/${Math.round(Math.random() * 10000)}`
+      );
+      const buffer = new Buffer(image?.data);
+      data.push(buffer.toString("base64"));
+    }
+    setAvatars(data);
+  };
+
   useEffect(() => {
-    const avatartImageLoader = async () => {
-      let data = [];
-      for (let i = 0; i < 5; i++) {
-        let image = await axios.get(
-          `${avatarApi}/${Math.round(Math.random() * 10000)}`
-        );
-        const buffer = new Buffer(image?.data);
-        data.push(buffer.toString("base64"));
-      }
-      setAvatars(data);
-    };
     avatartImageLoader();
 
     if (!localStorage.getItem("user")) {

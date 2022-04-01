@@ -14,3 +14,8 @@ export const loginApi = (data) => baseApi.post("/auth/login", data);
 // name        setting avatar
 export const setAvatarApi = (id, data) =>
   baseApi.post(`/auth/setAvatar/${id}`, data);
+
+// service     api hit point
+// name        get all user
+export const getAllUserApi = (currentUserId) =>
+  baseApi.get("/user/getalluser", currentUserId);

@@ -27,7 +27,7 @@ const SignIn = () => {
           footer: "You will be redireting to corresponding page",
         });
         setTimeout(() => {
-          navigate("/setavtar");
+          navigate("/setavatar");
         }, 4500);
         localStorage.setItem("user", JSON.stringify(data.user));
       } else {
