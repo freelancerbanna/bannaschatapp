@@ -24,10 +24,10 @@ const SignIn = () => {
           icon: "success",
           timer: 3500,
           confirmButtonText: "Ok",
-          footer: "You will be redireting to home page",
+          footer: "You will be redireting to corresponding page",
         });
         setTimeout(() => {
-          navigate("/");
+          navigate("/setavtar");
         }, 4500);
         localStorage.setItem("user", JSON.stringify(data.user));
       } else {
