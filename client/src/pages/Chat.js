@@ -39,7 +39,7 @@ const Chat = () => {
           changeChat={handleChangeChat}
         />
         {currentChat !== undefined ? (
-          <MessageArea currentChat={currentChat} />
+          <MessageArea currentChat={currentChat} currentUser={currentUser} />
         ) : (
           <Welcome currentUser={currentUser} />
         )}

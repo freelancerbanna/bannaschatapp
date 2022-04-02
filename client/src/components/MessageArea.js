@@ -1,10 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { addMessageApi } from "../api";
 import { Image } from "../utils";
-import { ChatInput } from "./ChatInput";
+import ChatInput from "./ChatInput";
 import Logout from "./Logout";
+import Messages from "./Messages";
 
-const MessageArea = ({ currentChat }) => {
+const MessageArea = ({ currentChat, currentUser }) => {
+  const handleSendMessage = async (message) => {
+    const { data } = await addMessageApi({
+      from: currentUser._id,
+      to: currentChat._id,
+      message: message,
+    });
+  };
   return (
     <>
       {currentChat && (
@@ -23,8 +32,8 @@ const MessageArea = ({ currentChat }) => {
             </div>
             <Logout />
           </div>
-          <div className="chatMessages"></div>
-          <ChatInput />
+          <Messages />
+          <ChatInput handleSendMessage={handleSendMessage} />
         </Container>
       )}
     </>

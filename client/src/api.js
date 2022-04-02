@@ -19,3 +19,8 @@ export const setAvatarApi = (id, data) =>
 // name        get all user
 export const getAllUserApi = (currentUserId) =>
   baseApi.get(`/user/getalluser/${currentUserId}`);
+
+// service     api hit point
+// name        add message
+export const addMessageApi = (data) =>
+  baseApi.post(`/message/addmessage`, data);
