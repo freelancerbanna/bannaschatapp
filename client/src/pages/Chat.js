@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getAllUserApi } from "../api";
+import { baseURL, getAllUserApi } from "../api";
 import { Contacts, MessageArea, Welcome } from "../components";
 
+import { io } from "socket.io-client";
+
 const Chat = () => {
+  const socket = useRef();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -30,6 +33,13 @@ const Chat = () => {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(baseURL);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
+
   return (
     <Container>
       <div className="container">
@@ -39,7 +49,11 @@ const Chat = () => {
           changeChat={handleChangeChat}
         />
         {currentChat !== undefined ? (
-          <MessageArea currentChat={currentChat} currentUser={currentUser} />
+          <MessageArea
+            currentChat={currentChat}
+            currentUser={currentUser}
+            socket={socket}
+          />
         ) : (
           <Welcome currentUser={currentUser} />
         )}

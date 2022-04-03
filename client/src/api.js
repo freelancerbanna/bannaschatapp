@@ -1,26 +1,30 @@
 import axios from "axios";
 
+export const baseURL = "http://localhost:8000";
+
 const baseApi = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL,
   timeout: 7000,
 });
 
 // service     api hit point
 // name        auth
-export const registerApi = (data) => baseApi.post("/auth/register", data);
-export const loginApi = (data) => baseApi.post("/auth/login", data);
+export const registerApi = (data) => baseApi.post("/api/auth/register", data);
+export const loginApi = (data) => baseApi.post("/api/auth/login", data);
 
 // service     api hit point
 // name        setting avatar
 export const setAvatarApi = (id, data) =>
-  baseApi.post(`/auth/setAvatar/${id}`, data);
+  baseApi.post(`/api/auth/setAvatar/${id}`, data);
 
 // service     api hit point
 // name        get all user
 export const getAllUserApi = (currentUserId) =>
-  baseApi.get(`/user/getalluser/${currentUserId}`);
+  baseApi.get(`/api/user/getalluser/${currentUserId}`);
 
 // service     api hit point
-// name        add message
+// name        message
 export const addMessageApi = (data) =>
-  baseApi.post(`/message/addmessage`, data);
+  baseApi.post(`/api/message/addmessage`, data);
+export const getMessagesApi = (data) =>
+  baseApi.post(`/api/message/getmessages`, data);

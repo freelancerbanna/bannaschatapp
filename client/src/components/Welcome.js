@@ -8,7 +8,9 @@ const Welcome = () => {
 
   const [userName, setUserName] = useState("");
   useEffect(() => {
-    setUserName(JSON.parse(localStorage.getItem("user")).username);
+    if (localStorage.getItem("user")) {
+      setUserName(JSON.parse(localStorage.getItem("user")).username);
+    }
   }, []);
 
   return (
